@@ -1,0 +1,12 @@
+<apex:page controller="ApexProjectTestClass">
+    <apex:form >
+        <apex:selectList value="{!selectedSObject}" size="1">
+            <apex:selectOptions value="{!Objects}"/>
+        </apex:selectList>
+        <apex:commandButton action="{!dummy}" value="Show Fields"/>
+    </apex:form>
+    <apex:dataTable value="{!FieldList}" var="field" rendered="{!selectedSObject != null}">
+        <apex:column value="{!field}"/>
+        <apex:column value="{!FieldList[field]}"/>
+    </apex:dataTable>
+</apex:page>
