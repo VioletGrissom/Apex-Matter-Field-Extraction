@@ -1,0 +1,48 @@
+@isTest
+public class ApexProjectTestClass{
+
+/*
+ *   List<advpm__Matter__c> applicableMatters = new List<advpm__Matter__c>();
+  applicableMatters = [SELECT Id, Name, CreatedById FROM advpm__Matter__c WHERE  LastModifiedBy.FirstName ='Violet'
+                      LIMIT 1];
+ * 
+ * 
+ */
+    public string selectedSObject { get; set;}
+    /*
+    public list<selectOption> getObjects(){
+        list<selectOption> options = new list<selectOption>();
+        map<string, SObjectType> objs = schema.getGlobalDescribe();
+        for(string key: objs.keySet()){
+            options.add(new selectoption(key,objs.get(key).getDescribe().getName()));
+        }
+        return options;
+    }*/
+    
+        public list<selectOption> getObjects(){
+        list<selectOption> options = new list<selectOption>();
+        map<string, SObjectType> objs = schema.getGlobalDescribe();
+        for(string key: objs.keySet()){
+                System.debug('Adding: ' + key);
+				options.add(new selectoption(key,objs.get(key).getDescribe().getName()));
+        }
+        return options;
+    }
+    
+    public void dummy(){
+        
+    }
+    
+    public map<string, string> getFieldList(){
+        map<string, string> fieldList = new map<string, string>();
+        if(selectedSObject != null){
+            map<string,SObjectField> fList = schema.getGlobalDescribe().get(selectedSObject).getDescribe().fields.getMap();
+            for(string str: fList.keySet()){
+				fieldList.put(str, fList.get(str).getDescribe().getLabel());                
+            }
+        }else{
+            return null;
+        }
+        return fieldList;
+    }
+    }
